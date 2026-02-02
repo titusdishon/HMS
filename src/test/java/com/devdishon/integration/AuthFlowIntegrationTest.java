@@ -68,7 +68,7 @@ class AuthFlowIntegrationTest extends AbstractIntegrationTest {
                 .when()
                 .post("/api/v1/auth/register")
                 .then()
-                .statusCode(200)
+                .statusCode(201)
                 .body("accessToken", notNullValue())
                 .body("refreshToken", notNullValue())
                 .extract();
@@ -148,7 +148,7 @@ class AuthFlowIntegrationTest extends AbstractIntegrationTest {
                 .when()
                 .post("/api/v1/auth/register")
                 .then()
-                .statusCode(200)
+                .statusCode(201)
                 .extract();
 
         String accessToken = response.path("accessToken");
@@ -190,7 +190,7 @@ class AuthFlowIntegrationTest extends AbstractIntegrationTest {
                 .when()
                 .post("/api/v1/auth/register")
                 .then()
-                .statusCode(200);
+                .statusCode(201);
 
         // Verify user exists with USER role
         var user = userRepository.findByEmail("role@test.com");
@@ -228,7 +228,7 @@ class AuthFlowIntegrationTest extends AbstractIntegrationTest {
                 .when()
                 .post("/api/v1/auth/register")
                 .then()
-                .statusCode(200)
+                .statusCode(201)
                 .extract();
 
         String refreshToken = response.path("refreshToken");

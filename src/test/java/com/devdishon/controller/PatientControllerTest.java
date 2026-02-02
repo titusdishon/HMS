@@ -9,6 +9,7 @@ import com.devdishon.entity.Role;
 import com.devdishon.entity.RoleName;
 import com.devdishon.entity.User;
 import com.devdishon.repository.PatientRepository;
+import com.devdishon.repository.RefreshTokenRepository;
 import com.devdishon.repository.RoleRepository;
 import com.devdishon.repository.UserRepository;
 import io.restassured.RestAssured;
@@ -41,6 +42,9 @@ class PatientControllerTest extends AbstractIntegrationTest {
     private RoleRepository roleRepository;
 
     @Autowired
+    private RefreshTokenRepository refreshTokenRepository;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     private String adminToken;
@@ -50,6 +54,8 @@ class PatientControllerTest extends AbstractIntegrationTest {
     void setUp() {
         RestAssured.port = port;
         patientRepository.deleteAll();
+        // Delete refresh tokens first to avoid FK constraint violations
+        refreshTokenRepository.deleteAll();
         userRepository.deleteAll();
 
         // Ensure roles exist
@@ -83,7 +89,7 @@ class PatientControllerTest extends AbstractIntegrationTest {
                 .when()
                 .post("/api/v1/auth/register")
                 .then()
-                .statusCode(200)
+                .statusCode(201)
                 .extract()
                 .path("accessToken");
     }

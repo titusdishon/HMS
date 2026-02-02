@@ -4,6 +4,7 @@ import com.devdishon.AbstractIntegrationTest;
 import com.devdishon.dto.auth.RegisterRequest;
 import com.devdishon.entity.Role;
 import com.devdishon.entity.RoleName;
+import com.devdishon.repository.RefreshTokenRepository;
 import com.devdishon.repository.RoleRepository;
 import com.devdishon.repository.UserRepository;
 import io.restassured.RestAssured;
@@ -28,9 +29,14 @@ class SecurityIntegrationTest extends AbstractIntegrationTest {
     @Autowired
     private RoleRepository roleRepository;
 
+    @Autowired
+    private RefreshTokenRepository refreshTokenRepository;
+
     @BeforeEach
     void setUp() {
         RestAssured.port = port;
+        // Delete refresh tokens first to avoid FK constraint violations
+        refreshTokenRepository.deleteAll();
         userRepository.deleteAll();
 
         // Ensure roles exist
@@ -133,7 +139,7 @@ class SecurityIntegrationTest extends AbstractIntegrationTest {
                 .when()
                 .post("/api/v1/auth/register")
                 .then()
-                .statusCode(200)
+                .statusCode(201) // Register returns 201 CREATED
                 .extract()
                 .path("accessToken");
 
@@ -162,7 +168,7 @@ class SecurityIntegrationTest extends AbstractIntegrationTest {
                 .when()
                 .post("/api/v1/auth/register")
                 .then()
-                .statusCode(200)
+                .statusCode(201) // Register returns 201 CREATED
                 .extract()
                 .path("accessToken");
 

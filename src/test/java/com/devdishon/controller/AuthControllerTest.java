@@ -5,6 +5,7 @@ import com.devdishon.dto.auth.LoginRequest;
 import com.devdishon.dto.auth.RegisterRequest;
 import com.devdishon.entity.Role;
 import com.devdishon.entity.RoleName;
+import com.devdishon.repository.RefreshTokenRepository;
 import com.devdishon.repository.RoleRepository;
 import com.devdishon.repository.UserRepository;
 import io.restassured.RestAssured;
@@ -29,9 +30,14 @@ class AuthControllerTest extends AbstractIntegrationTest {
     @Autowired
     private RoleRepository roleRepository;
 
+    @Autowired
+    private RefreshTokenRepository refreshTokenRepository;
+
     @BeforeEach
     void setUp() {
         RestAssured.port = port;
+        // Delete refresh tokens first to avoid FK constraint violations
+        refreshTokenRepository.deleteAll();
         userRepository.deleteAll();
 
         // Ensure roles exist
@@ -62,7 +68,7 @@ class AuthControllerTest extends AbstractIntegrationTest {
                 .when()
                 .post("/api/v1/auth/register")
                 .then()
-                .statusCode(200)
+                .statusCode(201)
                 .body("accessToken", notNullValue())
                 .body("refreshToken", notNullValue())
                 .body("tokenType", equalTo("Bearer"));
@@ -85,7 +91,7 @@ class AuthControllerTest extends AbstractIntegrationTest {
                 .when()
                 .post("/api/v1/auth/register")
                 .then()
-                .statusCode(200);
+                .statusCode(201);
 
         // Duplicate registration
         given()
@@ -114,7 +120,7 @@ class AuthControllerTest extends AbstractIntegrationTest {
                 .when()
                 .post("/api/v1/auth/register")
                 .then()
-                .statusCode(200);
+                .statusCode(201);
 
         // Then login
         LoginRequest loginRequest = new LoginRequest("login@example.com", "password123");
@@ -161,7 +167,7 @@ class AuthControllerTest extends AbstractIntegrationTest {
                 .when()
                 .post("/api/v1/auth/register")
                 .then()
-                .statusCode(200)
+                .statusCode(201)
                 .extract()
                 .path("refreshToken");
 
