@@ -2,7 +2,6 @@ package com.devdishon.controller;
 
 import com.devdishon.AbstractIntegrationTest;
 import com.devdishon.dto.PatientRequest;
-import com.devdishon.dto.auth.AuthResponse;
 import com.devdishon.dto.auth.RegisterRequest;
 import com.devdishon.entity.BloodType;
 import com.devdishon.entity.Gender;
@@ -62,7 +61,7 @@ class PatientControllerTest extends AbstractIntegrationTest {
                 .orElseGet(() -> roleRepository.save(new Role(RoleName.SUPER_ADMIN)));
 
         // Get admin token
-        adminToken = registerAndGetToken("admin", "admin@test.com", "password123");
+        adminToken = registerAndGetToken("Admin", "admin@test.com", "password123");
 
         // Update user to have admin role
         User adminUser = userRepository.findByEmail("admin@test.com").orElseThrow();
@@ -73,11 +72,11 @@ class PatientControllerTest extends AbstractIntegrationTest {
         adminToken = loginAndGetToken("admin@test.com", "password123");
 
         // Get user token
-        userToken = registerAndGetToken("user", "user@test.com", "password123");
+        userToken = registerAndGetToken("User", "user@test.com", "password123");
     }
 
-    private String registerAndGetToken(String username, String email, String password) {
-        RegisterRequest request = new RegisterRequest(username, email, password, "Test", "User");
+    private String registerAndGetToken(String firstName, String email, String password) {
+        RegisterRequest request = new RegisterRequest(firstName, "Test", email, password);
         return given()
                 .contentType(ContentType.JSON)
                 .body(request)
@@ -123,8 +122,9 @@ class PatientControllerTest extends AbstractIntegrationTest {
                 "1234567890",
                 LocalDate.of(1990, 1, 15),
                 Gender.MALE,
-                BloodType.O_POSITIVE,
                 "123 Main St",
+                "ID123456789",
+                BloodType.O_POSITIVE,
                 "Contact Person",
                 "0987654321"
         );
@@ -153,8 +153,9 @@ class PatientControllerTest extends AbstractIntegrationTest {
                 "1234567890",
                 LocalDate.of(1990, 1, 15),
                 Gender.FEMALE,
-                BloodType.A_NEGATIVE,
                 "456 Main St",
+                "ID987654321",
+                BloodType.A_NEGATIVE,
                 "Contact",
                 "0987654321"
         );
@@ -190,8 +191,9 @@ class PatientControllerTest extends AbstractIntegrationTest {
                 "1234567890",
                 LocalDate.of(1985, 5, 20),
                 Gender.MALE,
-                BloodType.B_POSITIVE,
                 "789 Main St",
+                "ID111222333",
+                BloodType.B_POSITIVE,
                 "Emergency Contact",
                 "1112223333"
         );
@@ -241,8 +243,9 @@ class PatientControllerTest extends AbstractIntegrationTest {
                 "1234567890",
                 LocalDate.of(1992, 8, 10),
                 Gender.FEMALE,
-                BloodType.AB_POSITIVE,
                 "Update St",
+                "ID444555666",
+                BloodType.AB_POSITIVE,
                 "Contact",
                 "4445556666"
         );
@@ -266,8 +269,9 @@ class PatientControllerTest extends AbstractIntegrationTest {
                 "1234567890",
                 LocalDate.of(1992, 8, 10),
                 Gender.FEMALE,
-                BloodType.AB_POSITIVE,
                 "New Address",
+                "ID444555666",
+                BloodType.AB_POSITIVE,
                 "New Contact",
                 "7778889999"
         );

@@ -56,11 +56,10 @@ class AuthFlowIntegrationTest extends AbstractIntegrationTest {
     void completeAuthenticationFlow() {
         // Step 1: Register
         RegisterRequest registerRequest = new RegisterRequest(
-                "flowtest",
-                "flow@test.com",
-                "password123",
                 "Flow",
-                "Test"
+                "Test",
+                "flow@test.com",
+                "password123"
         );
 
         var registerResponse = given()
@@ -137,11 +136,10 @@ class AuthFlowIntegrationTest extends AbstractIntegrationTest {
     void shouldNotUseRefreshTokenAfterLogout() {
         // Register
         RegisterRequest request = new RegisterRequest(
-                "logouttest",
-                "logout@test.com",
-                "password123",
                 "Logout",
-                "Test"
+                "Test",
+                "logout@test.com",
+                "password123"
         );
 
         var response = given()
@@ -180,11 +178,10 @@ class AuthFlowIntegrationTest extends AbstractIntegrationTest {
     @DisplayName("User should have USER role by default after registration")
     void userShouldHaveUserRoleByDefault() {
         RegisterRequest request = new RegisterRequest(
-                "roletest",
-                "role@test.com",
-                "password123",
                 "Role",
-                "Test"
+                "Test",
+                "role@test.com",
+                "password123"
         );
 
         given()
@@ -219,11 +216,10 @@ class AuthFlowIntegrationTest extends AbstractIntegrationTest {
     @DisplayName("Should persist refresh token to database")
     void shouldPersistRefreshTokenToDatabase() {
         RegisterRequest request = new RegisterRequest(
-                "persisttest",
-                "persist@test.com",
-                "password123",
                 "Persist",
-                "Test"
+                "Test",
+                "persist@test.com",
+                "password123"
         );
 
         var response = given()

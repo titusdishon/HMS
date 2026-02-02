@@ -121,11 +121,10 @@ class SecurityIntegrationTest extends AbstractIntegrationTest {
     void shouldAccessProtectedEndpointWithValidToken() {
         // Register user
         RegisterRequest request = new RegisterRequest(
-                "securitytest",
-                "security@test.com",
-                "password123",
                 "Security",
-                "Test"
+                "Test",
+                "security@test.com",
+                "password123"
         );
 
         String token = given()
@@ -151,11 +150,10 @@ class SecurityIntegrationTest extends AbstractIntegrationTest {
     @DisplayName("Token should work across multiple requests")
     void tokenShouldWorkAcrossMultipleRequests() {
         RegisterRequest request = new RegisterRequest(
-                "multitest",
-                "multi@test.com",
-                "password123",
                 "Multi",
-                "Test"
+                "Test",
+                "multi@test.com",
+                "password123"
         );
 
         String token = given()

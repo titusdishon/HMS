@@ -1,7 +1,6 @@
 package com.devdishon.controller;
 
 import com.devdishon.AbstractIntegrationTest;
-import com.devdishon.dto.auth.AuthResponse;
 import com.devdishon.dto.auth.LoginRequest;
 import com.devdishon.dto.auth.RegisterRequest;
 import com.devdishon.entity.Role;
@@ -51,11 +50,10 @@ class AuthControllerTest extends AbstractIntegrationTest {
     @DisplayName("Should register a new user successfully")
     void shouldRegisterUserSuccessfully() {
         RegisterRequest request = new RegisterRequest(
-                "testuser",
-                "test@example.com",
-                "password123",
                 "Test",
-                "User"
+                "User",
+                "test@example.com",
+                "password123"
         );
 
         given()
@@ -74,11 +72,10 @@ class AuthControllerTest extends AbstractIntegrationTest {
     @DisplayName("Should fail registration with duplicate email")
     void shouldFailRegistrationWithDuplicateEmail() {
         RegisterRequest request = new RegisterRequest(
-                "testuser",
-                "duplicate@example.com",
-                "password123",
                 "Test",
-                "User"
+                "User",
+                "duplicate@example.com",
+                "password123"
         );
 
         // First registration
@@ -105,11 +102,10 @@ class AuthControllerTest extends AbstractIntegrationTest {
     void shouldLoginSuccessfully() {
         // First register a user
         RegisterRequest registerRequest = new RegisterRequest(
-                "loginuser",
-                "login@example.com",
-                "password123",
                 "Login",
-                "User"
+                "User",
+                "login@example.com",
+                "password123"
         );
 
         given()
@@ -153,11 +149,10 @@ class AuthControllerTest extends AbstractIntegrationTest {
     void shouldRefreshTokenSuccessfully() {
         // Register a user
         RegisterRequest registerRequest = new RegisterRequest(
-                "refreshuser",
-                "refresh@example.com",
-                "password123",
                 "Refresh",
-                "User"
+                "User",
+                "refresh@example.com",
+                "password123"
         );
 
         String refreshToken = given()
@@ -185,11 +180,10 @@ class AuthControllerTest extends AbstractIntegrationTest {
     @DisplayName("Should validate registration input")
     void shouldValidateRegistrationInput() {
         RegisterRequest invalidRequest = new RegisterRequest(
-                "", // Empty username
+                "", // Empty first name
+                "", // Empty last name
                 "invalid-email", // Invalid email
-                "123", // Too short password
-                "",
-                ""
+                "123" // Too short password
         );
 
         given()

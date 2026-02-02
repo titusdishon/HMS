@@ -71,8 +71,8 @@ class DoctorControllerTest extends AbstractIntegrationTest {
         superAdminToken = loginAndGetToken("superadmin@test.com", "password123");
     }
 
-    private String registerAndGetToken(String username, String email, String password) {
-        RegisterRequest request = new RegisterRequest(username, email, password, "Test", "User");
+    private String registerAndGetToken(String firstName, String email, String password) {
+        RegisterRequest request = new RegisterRequest(firstName, "User", email, password);
         return given()
                 .contentType(ContentType.JSON)
                 .body(request)
