@@ -1,0 +1,221 @@
+### Health Check
+GET http://localhost:8080
+
+### ===== PATIENT ENDPOINTS =====
+
+### Get all patients
+GET http://localhost:8080/api/v1/patients
+
+### Get patient by ID
+GET http://localhost:8080/api/v1/patients/1
+
+### Create a new patient
+POST http://localhost:8080/api/v1/patients
+Content-Type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "john.doe@email.com",
+  "phoneNumber": "+1234567890",
+  "dateOfBirth": "1990-05-15",
+  "gender": "MALE",
+  "address": "123 Main St, City",
+  "nationalId": "ID123456",
+  "bloodType": "O_POSITIVE",
+  "emergencyContactName": "Jane Doe",
+  "emergencyContactPhone": "+0987654321"
+}
+
+### Update a patient
+PUT http://localhost:8080/api/v1/patients/1
+Content-Type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "john.doe@email.com",
+  "phoneNumber": "+1234567890",
+  "dateOfBirth": "1990-05-15",
+  "gender": "MALE",
+  "address": "456 Updated St, City",
+  "nationalId": "ID123456",
+  "bloodType": "O_POSITIVE",
+  "emergencyContactName": "Jane Doe",
+  "emergencyContactPhone": "+0987654321"
+}
+
+### Delete a patient
+DELETE http://localhost:8080/api/v1/patients/1
+
+### ===== DOCTOR ENDPOINTS =====
+
+### Get all doctors
+GET http://localhost:8080/api/v1/doctors
+
+### Get doctor by ID
+GET http://localhost:8080/api/v1/doctors/1
+
+### Get doctors by specialization
+GET http://localhost:8080/api/v1/doctors/specialization/CARDIOLOGY
+
+### Get available doctors
+GET http://localhost:8080/api/v1/doctors/available
+
+### Get available doctors by specialization
+GET http://localhost:8080/api/v1/doctors/available/specialization/CARDIOLOGY
+
+### Create a new doctor
+POST http://localhost:8080/api/v1/doctors
+Content-Type: application/json
+
+{
+  "firstName": "Sarah",
+  "lastName": "Smith",
+  "email": "sarah.smith@hospital.com",
+  "phoneNumber": "+1122334455",
+  "licenseNumber": "MED12345",
+  "specialization": "CARDIOLOGY",
+  "department": "Cardiology Department",
+  "yearsOfExperience": 10
+}
+
+### Update a doctor
+PUT http://localhost:8080/api/v1/doctors/1
+Content-Type: application/json
+
+{
+  "firstName": "Sarah",
+  "lastName": "Smith",
+  "email": "sarah.smith@hospital.com",
+  "phoneNumber": "+1122334455",
+  "licenseNumber": "MED12345",
+  "specialization": "CARDIOLOGY",
+  "department": "Cardiology Department",
+  "yearsOfExperience": 12
+}
+
+### Update doctor availability
+PATCH http://localhost:8080/api/v1/doctors/1/availability?isAvailable=false
+
+### Delete a doctor
+DELETE http://localhost:8080/api/v1/doctors/1
+
+### ===== APPOINTMENT ENDPOINTS =====
+
+### Get all appointments
+GET http://localhost:8080/api/v1/appointments
+
+### Get appointment by ID
+GET http://localhost:8080/api/v1/appointments/1
+
+### Get appointments by patient ID
+GET http://localhost:8080/api/v1/appointments/patient/1
+
+### Get appointments by doctor ID
+GET http://localhost:8080/api/v1/appointments/doctor/1
+
+### Get appointments by status
+GET http://localhost:8080/api/v1/appointments/status/SCHEDULED
+
+### Get upcoming appointments by patient ID
+GET http://localhost:8080/api/v1/appointments/patient/1/upcoming
+
+### Get appointments by date range
+GET http://localhost:8080/api/v1/appointments/date-range?start=2024-01-01T00:00:00&end=2024-12-31T23:59:59
+
+### Create a new appointment
+POST http://localhost:8080/api/v1/appointments
+Content-Type: application/json
+
+{
+  "patientId": 1,
+  "doctorId": 1,
+  "appointmentDateTime": "2024-02-15T10:30:00",
+  "appointmentType": "CONSULTATION",
+  "reasonForVisit": "Annual checkup"
+}
+
+### Update appointment status
+PATCH http://localhost:8080/api/v1/appointments/1/status?status=CONFIRMED
+
+### Reschedule appointment
+PATCH http://localhost:8080/api/v1/appointments/1/reschedule?newDateTime=2024-02-20T14:00:00
+
+### Cancel appointment
+PATCH http://localhost:8080/api/v1/appointments/1/cancel
+
+### Add notes to appointment
+PATCH http://localhost:8080/api/v1/appointments/1/notes
+Content-Type: application/json
+
+"Patient arrived on time. Vitals checked."
+
+### Delete appointment
+DELETE http://localhost:8080/api/v1/appointments/1
+
+### ===== MEDICAL RECORD ENDPOINTS =====
+
+### Get all medical records
+GET http://localhost:8080/api/v1/medical-records
+
+### Get medical record by ID
+GET http://localhost:8080/api/v1/medical-records/1
+
+### Get medical records by patient ID
+GET http://localhost:8080/api/v1/medical-records/patient/1
+
+### Get medical records by doctor ID
+GET http://localhost:8080/api/v1/medical-records/doctor/1
+
+### Get medical record by appointment ID
+GET http://localhost:8080/api/v1/medical-records/appointment/1
+
+### Get pending follow-ups
+GET http://localhost:8080/api/v1/medical-records/follow-ups?start=2024-01-01T00:00:00&end=2024-12-31T23:59:59
+
+### Create a new medical record
+POST http://localhost:8080/api/v1/medical-records
+Content-Type: application/json
+
+{
+  "patientId": 1,
+  "doctorId": 1,
+  "appointmentId": 1,
+  "diagnosis": "Hypertension Stage 1",
+  "symptoms": "Headaches, dizziness, elevated blood pressure",
+  "treatment": "Lifestyle modifications, medication",
+  "prescription": "Lisinopril 10mg once daily",
+  "labResults": null,
+  "notes": "Patient advised to monitor blood pressure at home",
+  "followUpDate": "2024-03-15T10:00:00"
+}
+
+### Update a medical record
+PUT http://localhost:8080/api/v1/medical-records/1
+Content-Type: application/json
+
+{
+  "patientId": 1,
+  "doctorId": 1,
+  "appointmentId": 1,
+  "diagnosis": "Hypertension Stage 1 - Controlled",
+  "symptoms": "No symptoms reported",
+  "treatment": "Continue current medication",
+  "prescription": "Lisinopril 10mg once daily",
+  "labResults": "BP: 120/80, normal range",
+  "notes": "Blood pressure now within normal range",
+  "followUpDate": "2024-06-15T10:00:00"
+}
+
+### Add lab results
+PATCH http://localhost:8080/api/v1/medical-records/1/lab-results
+Content-Type: application/json
+
+"CBC: Normal, Lipid Panel: Cholesterol 180mg/dL, Blood Sugar: 95mg/dL"
+
+### Set follow-up date
+PATCH http://localhost:8080/api/v1/medical-records/1/follow-up?followUpDate=2024-04-15T09:00:00
+
+### Delete medical record
+DELETE http://localhost:8080/api/v1/medical-records/1

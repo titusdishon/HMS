@@ -1,0 +1,8 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: health-system
+  annotations:
+    alb.ingress.kubernetes.io/group.name: health-system-prod
+    alb.ingress.kubernetes.io/tags: Environment=prod,Project=health-system
+    alb.ingress.kubernetes.io/wafv2-acl-arn: ""  # Add WAF ARN for production

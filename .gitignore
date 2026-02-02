@@ -1,0 +1,66 @@
+HELP.md
+target/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+### OS ###
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+
+### Environment ###
+*.env
+*.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+### Terraform ###
+terraform/.terraform/
+terraform/*.tfstate
+terraform/*.tfstate.*
+terraform/.terraform.lock.hcl
+terraform/crash.log
+terraform/override.tf
+terraform/override.tf.json
+terraform/*_override.tf
+terraform/*_override.tf.json
+# Keep example tfvars but ignore actual secrets
+!terraform/environments/**/terraform.tfvars
+
+### Kubernetes ###
+k8s/**/*.secret.yaml
+
+### Logs ###
+*.log
+logs/

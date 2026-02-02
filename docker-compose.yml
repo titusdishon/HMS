@@ -1,0 +1,52 @@
+services:
+  db:
+    container_name: postgres-spring-boot
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: devdishon
+      POSTGRES_PASSWORD: geek36873
+      POSTGRES_DB: devdishon
+      PGDATA: /data/postgres
+    volumes:
+      - db:/data/postgres
+    ports:
+      - "5332:5432"
+    networks:
+      - app-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U devdishon -d devdishon"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    container_name: health-management-system
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      DB_URL: jdbc:postgresql://db:5432/devdishon
+      DB_USERNAME: devdishon
+      DB_PASSWORD: geek36873
+      DDL_AUTO: update
+      JWT_SECRET: dGhpcyBpcyBhIHZlcnkgbG9uZyBzZWNyZXQga2V5IGZvciBqd3QgdG9rZW4gZ2VuZXJhdGlvbiBhbmQgdmFsaWRhdGlvbg==
+      SWAGGER_ENABLED: "true"
+      LOG_LEVEL: INFO
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+    profiles:
+      - app
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  db:

@@ -1,0 +1,7 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: health-system
+  annotations:
+    alb.ingress.kubernetes.io/group.name: health-system-dev
+    alb.ingress.kubernetes.io/tags: Environment=dev,Project=health-system

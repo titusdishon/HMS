@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: health-system-config
+data:
+  SPRING_PROFILES_ACTIVE: "kubernetes,dev"
+  SPRING_JPA_SHOW_SQL: "true"
+  LOGGING_LEVEL_COM_DEVDISHON: "DEBUG"
+  SPRINGDOC_SWAGGER_UI_ENABLED: "true"

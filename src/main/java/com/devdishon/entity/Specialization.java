@@ -1,0 +1,22 @@
+package com.devdishon.entity;
+
+public enum Specialization {
+    GENERAL_PRACTICE,
+    CARDIOLOGY,
+    DERMATOLOGY,
+    NEUROLOGY,
+    ORTHOPEDICS,
+    PEDIATRICS,
+    PSYCHIATRY,
+    GYNECOLOGY,
+    UROLOGY,
+    ONCOLOGY,
+    OPHTHALMOLOGY,
+    ENT,
+    DENTISTRY,
+    RADIOLOGY,
+    ANESTHESIOLOGY,
+    EMERGENCY_MEDICINE,
+    INTERNAL_MEDICINE,
+    SURGERY
+}
