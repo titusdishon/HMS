@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -68,6 +69,7 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
+    @PreAuthorize("isAuthenticated()")
     @Operation(summary = "Logout", description = "Invalidates all refresh tokens for the user")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Logout successful"),
@@ -79,6 +81,7 @@ public class AuthController {
     }
 
     @GetMapping("/me")
+    @PreAuthorize("isAuthenticated()")
     @Operation(summary = "Get current user", description = "Returns information about the authenticated user")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "User information retrieved"),
